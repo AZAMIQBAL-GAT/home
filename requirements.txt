@@ -1,7 +1,6 @@
 panel
 holoviews
 hvplot
-streamlit==1.21.0
 streamlit_option_menu
 streamlit-aggrid==0.3.3
 datetime

@@ -5,7 +5,6 @@ streamlit==1.21.0
 streamlit_option_menu
 streamlit-aggrid==0.3.3
 datetime
-pandas_profiling
 matplotlib
 folium>=0.13
 jinja2
@@ -15,5 +14,4 @@ xlrd
 openpyxl
 streamlit-extras
 streamlit-pandas-profiling
-sweetviz
 plotly

@@ -11,7 +11,6 @@ from requests.auth import HTTPBasicAuth
 from io import BytesIO
 import pandas as pd
 import io
-import numpy as np
 import panel as pn
 from bs4 import BeautifulSoup
 

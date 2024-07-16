@@ -95,7 +95,8 @@ for row in rows:
 
 # Create a DataFrame from the extracted data
 df = pd.DataFrame(data, columns=['Date', 'Time', 'Balance', 'Note', 'Amount'])
-
+# Drop the 'Balance' column
+df = df.drop(columns=['Balance'])
 
 # Clean the 'Amount' column (remove 'Rs.', commas, and whitespace)
 df['Amount'] = df['Amount'].str.replace(

@@ -14,7 +14,7 @@ import io
 import numpy as np
 import panel as pn
 from bs4 import BeautifulSoup
-
+from datetime import datetime
 pn.extension("tabulator", template="material", sizing_mode="stretch_width")
 
 #   Page configuration

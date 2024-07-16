@@ -95,7 +95,10 @@ for row in rows:
 # Create a DataFrame from the extracted data
 df = pd.DataFrame(data, columns=['Date', 'Time', 'Balance', 'Note', 'Amount'])
 
+
 # Drop the 'category' column
+#df_without_category = df.drop(columns=['category'])
+# Drop the 'Balance' column
 df = df.drop(columns=['Balance'])
 
 

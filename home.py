@@ -144,7 +144,32 @@ df['Category'] = df['Note'].str.split('/').str[0]
 # 3rd method
 filtered_df = df[df['Category'].str.contains(
     r'^butt sab advance', case=False, na=False)]
+# Add the current year to the dates
+current_year = datetime.now().year
+filtered_df['Date'] = filtered_df['Date'] + ' ' + str(current_year)
 
+# Convert 'Date' column to datetime
+filtered_df['Date'] = pd.to_datetime(filtered_df['Date'], format='%d %b %Y')
+
+# Group by month and sum the 'Amount' column
+df_grouped = filtered_df.groupby(
+    filtered_df['Date'].dt.to_period('M')).sum()['Amount']
+
+# Reset index to have a clean DataFrame for display
+df_grouped = df_grouped.reset_index()
+df_grouped['Date'] = df_grouped['Date'].dt.to_timestamp()
+
+# Display the result in Streamlit
+st.write("Monthly Sum of Amount")
+# st.dataframe(df_grouped)
+
+# Append total row to the DataFrame
+total_row = pd.DataFrame({'Date': ['Total'], 'Amount': [total_amount]})
+df_grouped = pd.concat([df_grouped, total_row], ignore_index=True)
+
+# Display the result in Streamlit
+st.write("Monthly Sum of Amount")
+st.dataframe(df_grouped)
 
 # Display the DataFrame in Streamlit
 st.dataframe(filtered_df)

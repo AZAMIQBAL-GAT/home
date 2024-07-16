@@ -95,6 +95,10 @@ for row in rows:
 # Create a DataFrame from the extracted data
 df = pd.DataFrame(data, columns=['Date', 'Time', 'Balance', 'Note', 'Amount'])
 
+# Drop the 'category' column
+df = df.drop(columns=['Balance'])
+
+
 
 # Clean the 'Amount' column (remove 'Rs.', commas, and whitespace)
 df['Amount'] = df['Amount'].str.replace(
@@ -126,6 +130,8 @@ df['Category'] = df['Note'].str.split('/').str[0]
 #     'Butt sab advance///Rakshwa go ka saman',
 #     'Butt sab advance/2.5/4905/5/8693'
 # ]
+
+
 
 # Filter the DataFrame
 # 1st method

@@ -3,7 +3,7 @@ holoviews
 hvplot
 streamlit
 streamlit_option_menu
-streamlit-aggrid==0.3.3
+streamlit-aggrid
 datetime
 pandas_profiling
 matplotlib

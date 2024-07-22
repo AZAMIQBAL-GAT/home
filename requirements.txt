@@ -1,6 +1,3 @@
-panel
-holoviews
-hvplot
 streamlit
 streamlit_option_menu
 streamlit-aggrid
@@ -17,3 +14,6 @@ streamlit-extras
 streamlit-pandas-profiling
 sweetviz
 plotly
+panel
+holoviews
+hvplot

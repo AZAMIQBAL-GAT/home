@@ -124,7 +124,7 @@ df['Category'] = df['Note'].str.split('/').str[0]
 category_sum = df.groupby('Category')['Amount'].sum()
 
 # Display the DataFrame and category sums in Streamlit
-st.dataframe(df)
+# st.dataframe(df)
 st.write("Category Sums:")
 st.write(category_sum)
 # fig, ax = plt.subplots()

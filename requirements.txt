@@ -1,19 +1,5 @@
-streamlit==1.27.2
-streamlit_option_menu
-streamlit-aggrid==0.3.3
-datetime
-pandas_profiling
-matplotlib
-folium>=0.13
-jinja2
-branca
-streamlit_folium
-xlrd
-openpyxl
-streamlit-extras
-streamlit-pandas-profiling
-sweetviz
-plotly
-panel
-holoviews
-hvplot
+streamlit==1.27.2  # currently pinned to this version
+numpy
+altair
+pandas
+streamlit-aggrid

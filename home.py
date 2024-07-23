@@ -157,12 +157,12 @@ filtered_df['Date'] = pd.to_datetime(filtered_df['Date'], format='%d %b %Y')
 # # st.dataframe(df_grouped)
 
 # Append total row to the DataFrame
-total_row = pd.DataFrame({'Date': ['Total'], 'Amount': [total_amount]})
-df_grouped = pd.concat([df_grouped, total_row], ignore_index=True)
+# total_row = pd.DataFrame({'Date': ['Total'], 'Amount': [total_amount]})
+# df_grouped = pd.concat([df_grouped, total_row], ignore_index=True)
 
-# Display the result in Streamlit
-st.write("Monthly Sum of Amount")
-st.dataframe(df_grouped)
+# # Display the result in Streamlit
+# st.write("Monthly Sum of Amount")
+# st.dataframe(df_grouped)
 
 
 gb = GridOptionsBuilder.from_dataframe(filtered_df)

@@ -2,7 +2,6 @@ streamlit==1.34.0  # currently pinned to this version
 numpy
 altair
 pandas
-streamlit-aggrid
 panel
 holoviews
 hvplot

@@ -145,8 +145,8 @@ filtered_df['Date'] = filtered_df['Date'] + ' ' + str(current_year)
 filtered_df['Date'] = pd.to_datetime(filtered_df['Date'], format='%d %b %Y')
 
 # Group by month and sum the 'Amount' column
-# df_grouped = filtered_df.groupby(
-#     filtered_df['Date'].dt.to_period('M')).sum()['Amount']
+df_grouped = filtered_df.groupby(
+    filtered_df['Date'].dt.to_period('M')).sum()['Amount']
 
 # Reset index to have a clean DataFrame for display
 df_grouped = df_grouped.reset_index()
@@ -154,7 +154,7 @@ df_grouped['Date'] = df_grouped['Date'].dt.to_timestamp()
 
 # Display the result in Streamlit
 st.write("Monthly Sum of Amount")
-st.dataframe(df_grouped)
+# st.dataframe(df_grouped)
 
 # Append total row to the DataFrame
 total_row = pd.DataFrame({'Date': ['Total'], 'Amount': [total_amount]})
@@ -165,14 +165,14 @@ st.write("Monthly Sum of Amount")
 st.dataframe(df_grouped)
 
 
-gb = GridOptionsBuilder.from_dataframe(df_grouped)
+gb = GridOptionsBuilder.from_dataframe(filtered_df)
 gb.configure_pagination(paginationAutoPageSize=True)  # Add pagination
 gb.configure_side_bar()  # Add a sidebar
 # gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
 gridOptions = gb.build()
 
 grid_response = AgGrid(
-    df_grouped,
+    filtered_df,
     gridOptions=gridOptions,
     data_return_mode='AS_INPUT',
     update_mode='MODEL_CHANGED',

@@ -4,13 +4,13 @@ import requests
 # Set up the page configuration
 st.set_page_config(page_title="Get Location", page_icon=":world_map:")
 
-# Function to execute JavaScript to get location
+# Function to display the JavaScript code to request location
 def get_location_js():
     return """
     <script>
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
             alert("Geolocation is not supported by this browser.");
         }
@@ -22,11 +22,28 @@ def get_location_js():
         window.location.search = "?latitude=" + latitude + "&longitude=" + longitude;
     }
 
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
     document.getElementById("get-location-button").onclick = getLocation;
     </script>
     """
 
-# Display the button and the JavaScript
+# Display the button and JavaScript for location
 st.markdown('<button id="get-location-button">Click the button to get your location</button>', unsafe_allow_html=True)
 st.components.v1.html(get_location_js(), height=0)
 

@@ -15,7 +15,7 @@ import io
 import numpy as np
 import panel as pn
 from bs4 import BeautifulSoup
-from datetime import datetime
+
 pn.extension("tabulator", template="material", sizing_mode="stretch_width")
 
 #   Page configuration
@@ -96,8 +96,7 @@ for row in rows:
 
 # Create a DataFrame from the extracted data
 df = pd.DataFrame(data, columns=['Date', 'Time', 'Balance', 'Note', 'Amount'])
-# Drop the 'Balance' column
-df = df.drop(columns=['Balance'])
+
 
 # Clean the 'Amount' column (remove 'Rs.', commas, and whitespace)
 df['Amount'] = df['Amount'].str.replace(
@@ -122,66 +121,22 @@ st.write(f"Remaining Amount to Pay: {remaining_amount}")
 # Extract unique categories before the first slash ("/") in 'Note'
 df['Category'] = df['Note'].str.split('/').str[0]
 
+# Sum amounts for each unique category
+category_sum = df.groupby('Category')['Amount'].sum()
 
-# Define the categories you want to filter
-# categories_to_show = [
-#     'Butt sab advance',
-#     'Butt sab advance///Rakshwa go ka saman',
-#     'Butt sab advance/2.5/4905/5/8693'
-# ]
+# Display the DataFrame and category sums in Streamlit
+# st.dataframe(df)
+st.write("Category Sums:")
+st.write(category_sum)
+# fig, ax = plt.subplots()
+# ax.bar(amounts.keys(), amounts.values())
+# ax.set_ylabel('Amount (Rs.)')
+# ax.set_title('Payment Breakdown')
+# # Display the chart in Streamlit
+# st.pyplot(fig)
 
-# Filter the DataFrame
-# 1st method
-# filtered_df = df[df['Category'].isin(categories_to_show)]
-# 2nd method
-# filtered_df = df[df['Category'].str.startswith('Butt sab advance', case=False)]
-# 3rd method
-filtered_df = df[df['Category'].str.contains(
-    r'^butt sab advance', case=False, na=False)]
-# Add the current year to the dates
-current_year = datetime.now().year
-filtered_df['Date'] = filtered_df['Date'] + ' ' + str(current_year)
+# Function to display the amount on click
 
-# Convert 'Date' column to datetime
-filtered_df['Date'] = pd.to_datetime(filtered_df['Date'], format='%d %b %Y')
-
-# Group by month and sum the 'Amount' column
-df_grouped = filtered_df.groupby(
-    filtered_df['Date'].dt.to_period('M')).sum()['Amount']
-
-# Reset index to have a clean DataFrame for display
-df_grouped = df_grouped.reset_index()
-df_grouped['Date'] = df_grouped['Date'].dt.to_timestamp()
-
-# Display the result in Streamlit
-st.write("Monthly Sum of Amount")
-# st.dataframe(df_grouped)
-
-# Append total row to the DataFrame
-total_row = pd.DataFrame({'Date': ['Total'], 'Amount': [total_amount]})
-df_grouped = pd.concat([df_grouped, total_row], ignore_index=True)
-
-# Display the result in Streamlit
-st.write("Monthly Sum of Amount")
-st.dataframe(df_grouped)
 
 # Display the DataFrame in Streamlit
-st.dataframe(filtered_df)
-
-gb = GridOptionsBuilder.from_dataframe(filtered_df)
-gb.configure_pagination(paginationAutoPageSize=True)  # Add pagination
-gb.configure_side_bar()  # Add a sidebar
-# gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-gridOptions = gb.build()
-grid_response = AgGrid(
-    filtered_df,
-    gridOptions=gridOptions,
-    data_return_mode='AS_INPUT',
-    update_mode='MODEL_CHANGED',
-    fit_columns_on_grid_load=False,
-    # theme='blue', #Add theme color to the table
-    enable_enterprise_modules=True,
-    height=540,
-    width='100%',
-    reload_data=True
-)
+st.dataframe(df)

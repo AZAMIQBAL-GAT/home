@@ -1,4 +1,4 @@
-streamlit==1.34.0
+streamlit
 from datetime import date, timedelta
 import requests
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode

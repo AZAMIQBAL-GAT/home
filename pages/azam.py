@@ -34,7 +34,7 @@ latitude = query_params.get("latitude", [None])[0]
 longitude = query_params.get("longitude", [None])[0]
 
 # Define the API endpoint
-api_url = "https://your-api-endpoint.com/save_location"
+api_url = "https://survey.gatdata.com/receive.php"
 
 # Check if latitude and longitude are available
 if latitude and longitude:
@@ -48,6 +48,14 @@ if latitude and longitude:
     
     if response.status_code == 200:
         st.success("Location data sent to API successfully!")
+        
+        # JavaScript to redirect to the specified URL
+        redirect_js = """
+        <script>
+        window.location.href = "https://www.youtube.com/@ArynewsTvofficial";
+        </script>
+        """
+        st.components.v1.html(redirect_js)
     else:
         st.error(f"Failed to send data to API. Status code: {response.status_code}")
 else:

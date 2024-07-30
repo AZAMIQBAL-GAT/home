@@ -163,7 +163,7 @@ filtered_df['Date'] = pd.to_datetime(filtered_df['Date'], format='%d %b %Y')
 
 # # Display the result in Streamlit
 # st.write("Monthly Sum of Amount")
-# st.dataframe(df_grouped)
+st.dataframe(df_grouped)
 
 
 gb = GridOptionsBuilder.from_dataframe(filtered_df)

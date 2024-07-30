@@ -120,6 +120,11 @@ st.write(f"Remaining Amount to Pay: {remaining_amount}")
 
 # Extract unique categories before the first slash ("/") in 'Note'
 df['Category'] = df['Note'].str.split('/').str[0]
+filtered_df = df[df['Category'].str.contains(
+    r'^butt sab advance', case=False, na=False)]
+
+st.dataframe(filtered_df)
+
 
 # Sum amounts for each unique category
 category_sum = df.groupby('Category')['Amount'].sum()

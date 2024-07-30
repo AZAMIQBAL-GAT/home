@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
-import os
+import requests
 
 # Set up the page configuration
 st.set_page_config(page_title="Get Location", page_icon=":world_map:")
@@ -34,21 +33,22 @@ query_params = st.experimental_get_query_params()
 latitude = query_params.get("latitude", [None])[0]
 longitude = query_params.get("longitude", [None])[0]
 
+# Define the API endpoint
+api_url = "https://your-api-endpoint.com/save_location"
+
 # Check if latitude and longitude are available
 if latitude and longitude:
     st.write(f"Latitude: {latitude}, Longitude: {longitude}")
 
-    # Save the data to a local file
-    data_file = "location_data.csv"
-    new_data = pd.DataFrame([[latitude, longitude]], columns=["Latitude", "Longitude"])
-
-    if os.path.exists(data_file):
-        existing_data = pd.read_csv(data_file)
-        data = pd.concat([existing_data, new_data], ignore_index=True)
+    # Send data to the API
+    response = requests.post(api_url, json={
+        "name": latitude,
+        "father_name": longitude
+    })
+    
+    if response.status_code == 200:
+        st.success("Location data sent to API successfully!")
     else:
-        data = new_data
-
-    data.to_csv(data_file, index=False)
-    st.success("Location data saved successfully!")
+        st.error(f"Failed to send data to API. Status code: {response.status_code}")
 else:
     st.write("Click the button to get your location.")

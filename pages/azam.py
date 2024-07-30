@@ -4,29 +4,31 @@ import requests
 # Set up the page configuration
 st.set_page_config(page_title="Get Location", page_icon=":world_map:")
 
-# JavaScript to get location
-get_location_js = """
-<script>
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geolocation is not supported by this browser.");
+# Function to execute JavaScript to get location
+def get_location_js():
+    return """
+    <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
     }
-}
 
-function showPosition(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    window.location.search = "?latitude=" + latitude + "&longitude=" + longitude;
-}
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        window.location.search = "?latitude=" + latitude + "&longitude=" + longitude;
+    }
 
-getLocation();
-</script>
-"""
+    document.getElementById("get-location-button").onclick = getLocation;
+    </script>
+    """
 
-# Execute the JavaScript
-st.components.v1.html(get_location_js)
+# Display the button and the JavaScript
+st.markdown('<button id="get-location-button">Click the button to get your location</button>', unsafe_allow_html=True)
+st.components.v1.html(get_location_js(), height=0)
 
 # Get the query parameters
 query_params = st.experimental_get_query_params()

@@ -1,9 +1,8 @@
-streamlit
+import streamlit as st
 from datetime import date, timedelta
 import requests
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
 from streamlit_option_menu import option_menu
-import streamlit as st
 import hvplot.pandas
 import holoviews as hv
 import matplotlib.pyplot as plt

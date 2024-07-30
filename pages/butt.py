@@ -1,3 +1,4 @@
+streamlit
 from datetime import date, timedelta
 import requests
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
